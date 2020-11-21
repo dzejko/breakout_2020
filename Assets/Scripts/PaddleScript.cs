@@ -2,15 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PaddleScript : MonoBehaviour {
-    public float speed = 150;
+    public new AudioSource audio;
+    public float speed = 50;
 
-    private void SetSpeed(float dir) {
-        GetComponent<Rigidbody2D>().velocity = Vector2.right * dir * speed;
+    private void AddSpeed(float dir) {
+        Vector2 result = Vector2.right * dir * speed;
+        GetComponent<Rigidbody2D>().velocity = result;
     }
 
-    void FixedUpdate() {
+    private void MakeMove() {
         float h = Input.GetAxisRaw("Horizontal");
-        SetSpeed(h);
+        AddSpeed(h);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+		if (!collision.gameObject.name.Contains("Border")) {
+            audio.Play();
+		}
+	}
+
+    void FixedUpdate() {
+        MakeMove();
     }
 }
