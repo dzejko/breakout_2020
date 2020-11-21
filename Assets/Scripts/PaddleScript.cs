@@ -2,28 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class PaddleScript : MonoBehaviour {
-    public new AudioSource audio;
-    public float speed = 50;
+	private readonly float boundsX = 3.35f;
+	private readonly float boundsY = -4.5f;
+	private Vector2 playerPosition;
+    Rigidbody2D body;
 
-    private void AddSpeed(float dir) {
-        Vector2 result = Vector2.right * dir * speed;
-        GetComponent<Rigidbody2D>().velocity = result;
-    }
-
-    private void MakeMove() {
-        float h = Input.GetAxisRaw("Horizontal");
-        AddSpeed(h);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision) {
-		if (!collision.gameObject.name.Contains("Border")) {
-            audio.Play();
-		}
+	private void Awake() {
+        body = GetComponent<Rigidbody2D>();
+		playerPosition = gameObject.transform.position;
 	}
 
-    void FixedUpdate() {
-        MakeMove();
-    }
+	private void FixedUpdate() {
+		Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+		playerPosition = new Vector2(mouse.x, boundsY);
+		if (playerPosition.x < -boundsX) {
+			playerPosition.x = -boundsX;
+		}
+
+		if (playerPosition.x > boundsX) {
+			playerPosition.x = boundsX;
+		}
+
+		body.position = playerPosition;
+	}
 }
