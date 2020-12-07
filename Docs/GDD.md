@@ -34,7 +34,7 @@ Gracz rozpoczyna rozgrywkę klikając dowolny klawisz. Wyświetlana jest plansza
 Po rozpoczęciu rozgrywki z dołu ekranu wylatuje wirus odpowiedni dla danej planszy.
 Wirus odbija się od każdej powierzchni pod kątem, w którym w dany obiekt wleciał i leci dalej. Gracz poruszając paletką z dołu ekranu za pomocą klawiszy odbija wirusa z powrotem w stronę ludzików. Wirus uderzając w ludzika sprawia, że znika. Jeżeli gracz nie zdoła odbić wirusa - przegrywa.
 
-//### 4.3 Struktura gameloop'a <a href="gameloop"></a>
+### 4.3 Struktura gameloop'a <a href="gameloop"></a>
 
 ```mermaid
 graph TD
@@ -43,6 +43,6 @@ graph TD
     C --> A;
 ```
 
-//### 4.4 Dynamika <a href="dynamika"></a>
+### 4.4 Dynamika <a href="dynamika"></a>
 
 Każda planeta ma swoje unikalne mechaniki.

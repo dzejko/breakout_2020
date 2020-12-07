@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Block
+  - Ball
+  - Paddle
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -47,4 +50,7 @@ TagManager:
     locked: 0
   - name: Entities
     uniqueID: 3760557647
+    locked: 0
+  - name: Interface
+    uniqueID: 738953671
     locked: 0
