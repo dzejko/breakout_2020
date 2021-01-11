@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: aa9b04e735c76d64498c044215e5ef82
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - DM Mono
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 85814e3006fd0f142a35a95d3786a986, type: 3}
+  - {fileID: 12800000, guid: a6698cd19ad66cf4da7e2d2245fa4f46, type: 3}
+  - {fileID: 12800000, guid: 1201476be71984040ba5a8dcb72b9ced, type: 3}
+  - {fileID: 12800000, guid: b8f9a02cb2fd77f489d06ad90b11b998, type: 3}
+  - {fileID: 12800000, guid: f8eb084e2a85bc348a27421af09abca0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -14,9 +14,9 @@ public class Paddle : MonoBehaviour {
             instance = this;
         }
     }
-
     #endregion
 
+    // Left-right walls and DeathWall boundary
     private readonly float boundsX = 3.35f;
     private readonly float boundsY = -4.5f;
     private Vector2 playerPosition;
@@ -30,7 +30,6 @@ public class Paddle : MonoBehaviour {
     private void FixedUpdate() {
         // Convert the mouse "crosshair" from the screen coordinates to world coordinates
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         playerPosition = new Vector2(mouse.x, boundsY);
 
         // Check the paddle position and make sure you cannot get out of bounds
@@ -57,10 +56,10 @@ public class Paddle : MonoBehaviour {
             Vector3 paddleCenter = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
             ballBody.velocity = Vector2.zero;
 
-            // Calculate the difference between where the point was in relation to the paddle's origin point
+            // Calculate the difference of the point of collision in relation to the paddle's center
             float difference = paddleCenter.x - hitPoint.x;
 
-            // Apply an equal or inverse force, depending on where it landed
+            // Apply an equal force (but upwards) depending on where it landed
             if (hitPoint.x < paddleCenter.x) {
                 float dir = -(Mathf.Abs(difference * 200));
                 ballBody.AddForce(new Vector2(dir, BallManager.Instance.initialBallSpeed));

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,10 +26,10 @@ public class BallManager : MonoBehaviour {
     [SerializeField]
     private Ball ballPrefab;
 
-    private bool launched = false;          // Whether a given ball has been launched already
-                                            // TODO: make this per-ball basis
+    // TODO: make this per-ball basis
+    //private bool launched = false;          // Whether a given ball has been launched already
     private float ballOffsetY = 0.66f;      // Offset from the origin of the paddle.
-    public float initialBallSpeed = 500;    // Sets the initial speed of a ball.
+    public float initialBallSpeed = 400;    // Sets the initial speed of a ball.
 
     private void Start() {
         Balls = new List<Ball>();
@@ -49,26 +49,36 @@ public class BallManager : MonoBehaviour {
             // And don't launch unless the spacebar key has been striked.
             if (Input.GetKey(KeyCode.Space)) {
                 Launch();
+                GameManager.Instance.gameOverScreen.SetActive(false);
             }
         }
     }
 
     // TODO: will be used to do powerups, like multi-ball spawning.
-    private void SpawnBalls(Vector3 position, uint count) {
+    public void SpawnBalls(Vector3 position, uint count) {
         for (uint i = 0; i < count; ++i) {
-            Ball ball = null;
-            ball = InitBall(ball);
+            Ball spawnedBall = Instantiate(ballPrefab, position, Quaternion.identity) as Ball;
+
+            Rigidbody2D spawnBallRb = spawnedBall.GetComponent<Rigidbody2D>();
+            spawnBallRb.isKinematic = false;
+            spawnBallRb.AddForce(new Vector2(0, initialBallSpeed));
+
+            this.Balls.Add(spawnedBall);
         }
     }
 
     // Destroy all balls
-    // TODO: Reset the balls afterwards
     private void DestroyBalls() {
         foreach (var ball in this.Balls) {
             Destroy(ball.gameObject);
         }
 
+        // Clear all references to remaining balls.
+        this.Balls.Clear();
+
+        // Initialize a new ball and add it to the list.
         initialBall = InitBall(initialBall);
+        initialBallBody = initialBall.GetComponent<Rigidbody2D>();
     }
 
     public void ResetBalls() {
@@ -103,7 +113,7 @@ public class BallManager : MonoBehaviour {
             return new Vector3(paddlePos.x, paddlePos.y + ballOffsetY);
         } else {
             float xPos = paddlePos.x;
-            xPos *= Random.value;
+            xPos *= Random.Range(-1.0f, 1.0f);
             return new Vector3(xPos, paddlePos.y + ballOffsetY);
         }
     }
@@ -115,7 +125,7 @@ public class BallManager : MonoBehaviour {
         initialBall.GetComponent<Collider2D>().enabled = true;
 
         initialBallBody.isKinematic = false;
-        Vector2 dir = new Vector2(Random.value * initialBallSpeed, initialBallSpeed);
+        Vector2 dir = new Vector2(Random.Range(-1.0f, 1.0f) * initialBallSpeed, initialBallSpeed);
         initialBallBody.AddForce(dir);
 
         GameManager.Instance.HasGameStarted = true;
